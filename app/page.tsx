@@ -74,7 +74,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#14F195]/0 to-[#14F195]/10 opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
           <a
-            href="https://github.com"
+            href="https://github.com/Yahwenissi/solana-app"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-2xl border border-gray-200 px-8 py-4 text-base font-semibold text-gray-600 hover:text-gray-900 hover:border-gray-300 transition-all"
