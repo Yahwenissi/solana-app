@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Solana Chat — AI-Powered Transaction Sender
+
+Send SOL and USDC on Solana devnet by typing natural language commands. Powered by Claude AI for intent parsing and Phantom Wallet for signing.
+
+## Features
+
+- **Natural language transactions** — type `send 5 USDC to Alice`, Claude parses the intent
+- **SOL & USDC support** — automatic token detection via devnet USDC mint
+- **Voice confirmation** — browser speech reads back transaction details before signing
+- **Transaction history** — chat-style UI with confirmed/failed status badges
+- **Solana Explorer links** — click to verify every transaction on-chain
+- **Balance display** — auto-refreshes after each transaction
+- **Phantom Wallet** — auto-connect on devnet
+- **Dark theme** — Solana purple/teal gradient UI with glassmorphism cards
+
+## Prerequisites
+
+- Node.js 20+
+- Phantom browser extension (set to devnet)
+- Anthropic API key
+- (Optional) ElevenLabs API key for cloned voice TTS
 
 ## Getting Started
 
-First, run the development server:
+```bash
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.local.example .env.local
+```
+
+Fill in your API keys in `.env.local`:
+
+```env
+ANTHROPIC_API_KEY=sk-ant-...
+ELEVENLABS_API_KEY=sk_...          # optional
+NEXT_PUBLIC_ELEVENLABS_VOICE_ID=v9ZBO8AjSgr0MJdazj18  # optional
+```
+
+Then run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000), connect your Phantom wallet, and type:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+send 5 USDC to Alice
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Usage
 
-## Learn More
+1. Connect Phantom wallet (devnet)
+2. Type a command like `send 1 SOL to Bob` or `send 10 USDC to Charlie`
+3. Claude parses the intent and shows a preview card
+4. Click ✓ to confirm or ✗ to cancel
+5. Watch your balance update after confirmation
+6. Click "View on Explorer" to verify on Solscan
 
-To learn more about Next.js, take a look at the following resources:
+## Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/
+  page.tsx              — Main chat UI, wallet connection, balance
+  api/chat/route.ts     — Claude AI intent parsing endpoint
+  api/tts/route.ts      — ElevenLabs TTS endpoint
+  _components/
+    ChatMessage.tsx      — Message bubble with conditional tx card
+    ChatInput.tsx        — Text input with send button
+    TransactionPreview.tsx — Pre-confirmation card
+    TransactionResult.tsx — Post-tx card with status, explorer link
+    WalletButton.tsx     — Phantom wallet connect button
+  _lib/
+    types.ts            — TypeScript types
+    contacts.ts         — Hardcoded contacts (Alice, Bob, Charlie)
+lib/
+  sendPayment.ts        — SOL/USDC transaction dispatch + error handling
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Built With
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 + Turbopack
+- React 19
+- Tailwind CSS v4
+- Solana Web3.js + SPL Token
+- Anthropic Claude Haiku 4.5
+- Phantom Wallet Adapter
