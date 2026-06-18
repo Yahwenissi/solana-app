@@ -1,0 +1,26 @@
+[package]
+name = "solanachat-protocol"
+version = "0.1.0"
+description = "SolanaChat Protocol — DCA vaults & timelocked transfers"
+edition = "2021"
+
+[features]
+no-entrypoint = []
+default = []
+
+[dependencies]
+solana-program = "2.1"
+borsh = "0.10"
+borsh-derive = "0.10"
+spl-token = { version = "6", features = ["no-entrypoint"] }
+
+[lib]
+name = "solanachat_protocol"
+crate-type = ["cdylib", "lib"]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+overflow-checks = true

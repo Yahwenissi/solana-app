@@ -40,10 +40,11 @@ export async function sendPayment(
   const toPubkey = new PublicKey(toAddress)
 
   try {
+    const amount = intent.amount ?? 0
     if (intent.token === 'USDC') {
-      return await sendUsdc(connection, wallet.publicKey, wallet.sendTransaction, toPubkey, intent.amount)
+      return await sendUsdc(connection, wallet.publicKey, wallet.sendTransaction, toPubkey, amount)
     }
-    return await sendSol(connection, wallet.publicKey, wallet.sendTransaction, toPubkey, intent.amount)
+    return await sendSol(connection, wallet.publicKey, wallet.sendTransaction, toPubkey, amount)
   } catch (err) {
     throw toFriendlyError(err)
   }

@@ -20,34 +20,48 @@ export function TransactionPreview({
   voicePlaying: boolean
 }) {
   return (
-    <div className="mt-3 rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-lg animate-fade-in">
-      <div className="mb-3 flex items-center justify-between">
-        <span className="text-base font-semibold text-gray-900">
-          Confirm Transaction?
-        </span>
-        <span className="rounded-full bg-gradient-to-r from-purple-500/20 to-teal-500/20 px-3 py-0.5 text-xs font-medium text-solana-teal border border-teal-500/20">
-          Devnet
-        </span>
+    <div className="mt-4 glass-card rounded-xl p-5 border border-gray-200/80 animate-scale-in">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#9945FF]/10 text-[#9945FF]">
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <span className="text-sm font-semibold text-gray-900">Confirm Transaction</span>
+            <span className="ml-2 rounded-full bg-[#14F195]/10 border border-[#14F195]/20 px-2 py-0.5 text-xs font-medium text-[#14F195]">
+              Devnet
+            </span>
+          </div>
+        </div>
       </div>
 
-      <p className="mb-3 text-sm text-gray-700">
-        Send <span className="font-semibold text-gray-900">{intent.amount} {intent.token}</span> to{' '}
-        <span className="font-semibold text-gray-900">{intent.recipientName}</span>?
-      </p>
-
-      <div className="mb-4 space-y-1.5 text-sm text-gray-600">
+      <div className="mb-4 rounded-xl bg-gray-50/80 border border-gray-100 p-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Amount</span>
+          <span className="text-lg font-bold text-gray-900">{intent.amount} {intent.token}</span>
+        </div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">To</span>
+          <span className="text-sm font-semibold text-gray-700">{intent.recipientName}</span>
+        </div>
         {resolvedAddress && (
-          <p className="truncate font-mono text-xs text-gray-400">
-            {resolvedAddress}
-          </p>
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Address</span>
+            <span className="text-xs font-mono text-gray-500 truncate ml-4 max-w-[180px]">
+              {resolvedAddress.slice(0, 4)}...{resolvedAddress.slice(-4)}
+            </span>
+          </div>
         )}
         {!resolvedAddress && (
-          <p className="text-xs text-amber-400/80">Unknown contact — using name as address</p>
+          <p className="text-xs text-amber-500/70 mt-1">Unknown contact — using name as address</p>
         )}
         {intent.memo && (
-          <p>
-            <span className="font-medium text-gray-700">Memo:</span> {intent.memo}
-          </p>
+          <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-200">
+            <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Memo</span>
+            <span className="text-sm text-gray-600">{intent.memo}</span>
+          </div>
         )}
       </div>
 
@@ -56,13 +70,13 @@ export function TransactionPreview({
           type="button"
           onClick={onVoice}
           disabled={voicePlaying}
-          className="flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 transition-all duration-200 hover:bg-gray-50 hover:text-gray-800 disabled:opacity-40"
+          className="flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white/50 px-3.5 py-2 text-xs font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-gray-800 hover:border-gray-300 disabled:opacity-40"
         >
           {voicePlaying ? (
             <>
               <span className="relative flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-solana-teal opacity-75" />
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-solana-teal" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#14F195] opacity-75" />
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-[#14F195]" />
               </span>
               Playing...
             </>
@@ -82,16 +96,16 @@ export function TransactionPreview({
           type="button"
           onClick={onCancel}
           disabled={isSending}
-          className="rounded-lg border border-gray-200 px-4 py-1.5 text-xs font-medium text-gray-600 transition-all duration-200 hover:bg-gray-50 hover:text-gray-800 disabled:opacity-40"
+          className="rounded-xl border border-gray-200 bg-white/50 px-4 py-2 text-xs font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-gray-800 disabled:opacity-40"
         >
-          No ✗
+          Cancel
         </button>
 
         <button
           type="button"
           onClick={onConfirm}
           disabled={isSending}
-          className="rounded-lg bg-gradient-to-r from-[#9945FF] to-[#7C3AED] px-4 py-1.5 text-xs font-medium text-white transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/30 hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:shadow-none disabled:hover:scale-100"
+          className="btn-neon px-5 py-2 text-xs inline-flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {isSending ? (
             <span className="flex items-center gap-1.5">
@@ -102,7 +116,12 @@ export function TransactionPreview({
               Sending...
             </span>
           ) : (
-            'Yes ✓'
+            <>
+              Confirm
+              <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </>
           )}
         </button>
       </div>

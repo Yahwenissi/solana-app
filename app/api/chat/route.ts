@@ -45,14 +45,49 @@ export async function POST(req: NextRequest) {
           type: 'text',
           text: `You are an intent parser for a Solana wallet app. Given a user message, extract the transaction intent.
 
-Return ONLY valid JSON with this structure:
+Return ONLY valid JSON with this structure.
+
+For sending payments:
 {
   "intent": {
     "action": "send",
     "token": "SOL" or "USDC",
     "amount": <number>,
-    "recipientName": "<name or address as typed>",
-    "memo": "<optional memo text or null>"
+    "recipientName": "<name or address>",
+    "memo": "<optional memo or null>"
+  }
+}
+
+For swapping tokens:
+{
+  "intent": {
+    "action": "swap",
+    "inputToken": "<token to swap from, uppercase>",
+    "outputToken": "<token to swap to, uppercase>",
+    "inputAmount": <amount as number>
+  }
+}
+
+For DCA recurring payments:
+{
+  "intent": {
+    "action": "dca",
+    "token": "SOL" or "USDC",
+    "amount": <number>,
+    "recipientName": "<name>",
+    "interval": "daily" | "weekly" | "monthly",
+    "totalDeposits": <optional number of payments>
+  }
+}
+
+For timelocked transfers:
+{
+  "intent": {
+    "action": "timelock",
+    "token": "SOL" or "USDC",
+    "amount": <number>,
+    "recipientName": "<name>",
+    "releaseDate": "<natural language date or time>"
   }
 }
 
@@ -61,15 +96,26 @@ If you cannot parse a valid intent, return:
   "intent": null
 }
 
+Supported tokens for swap: SOL, USDC, USDT, BONK, JUP, RAY, PYTH
+
 Examples:
 User: "send 5 USDC to Alice"
 Response: {"intent":{"action":"send","token":"USDC","amount":5,"recipientName":"Alice"}}
 
-User: "send 1 sol to Bob please"
-Response: {"intent":{"action":"send","token":"SOL","amount":1,"recipientName":"Bob"}}
+User: "swap 2 SOL for USDC"
+Response: {"intent":{"action":"swap","inputToken":"SOL","outputToken":"USDC","inputAmount":2}}
 
-User: "send 10 USDC to Alice with memo lunch"
-Response: {"intent":{"action":"send","token":"USDC","amount":10,"recipientName":"Alice","memo":"lunch"}}
+User: "send 1 SOL to Alice every week"
+Response: {"intent":{"action":"dca","token":"SOL","amount":1,"recipientName":"Alice","interval":"weekly"}}
+
+User: "send 5 USDC to Bob every day for 30 days"
+Response: {"intent":{"action":"dca","token":"USDC","amount":5,"recipientName":"Bob","interval":"daily","totalDeposits":30}}
+
+User: "send 2 SOL to Charlie tomorrow at 3pm"
+Response: {"intent":{"action":"timelock","token":"SOL","amount":2,"recipientName":"Charlie","releaseDate":"tomorrow at 3pm"}}
+
+User: "send 5 USDC to Alice next Friday"
+Response: {"intent":{"action":"timelock","token":"USDC","amount":5,"recipientName":"Alice","releaseDate":"next Friday"}}
 
 User: "hello"
 Response: {"intent":null}
