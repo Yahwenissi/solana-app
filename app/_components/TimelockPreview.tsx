@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import type { TransactionIntent } from '../_lib/types'
 
 function parseReleaseDate(dateStr: string): number {
@@ -70,13 +69,7 @@ export function TimelockPreview({
   onCancel: () => void
   isSending: boolean
 }) {
-  const [releaseTimestamp, setReleaseTimestamp] = useState<number>(0)
-
-  useEffect(() => {
-    if (intent.releaseDate) {
-      setReleaseTimestamp(parseReleaseDate(intent.releaseDate))
-    }
-  }, [intent.releaseDate])
+  const releaseTimestamp = intent.releaseDate ? parseReleaseDate(intent.releaseDate) : 0
 
   return (
     <div className="mt-4 glass-card rounded-xl p-5 border border-gray-200/80 animate-scale-in">

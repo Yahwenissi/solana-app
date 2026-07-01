@@ -29,6 +29,7 @@ export function VaultCard({
   onClose: (address: string) => void
   isExecuting?: boolean
 }) {
+  // eslint-disable-next-line react-hooks/purity
   const now = Math.floor(Date.now() / 1000)
   const isDue = now >= vault.nextExecution
   const progress = vault.totalDeposited > 0

@@ -1,0 +1,10 @@
+C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\target\sbpf-solana-solana\release\deps\memoffset-74f3c85b9f8c7805.d: C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\lib.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\raw_field.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\offset_of.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\span_of.rs
+
+C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\target\sbpf-solana-solana\release\deps\libmemoffset-74f3c85b9f8c7805.rlib: C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\lib.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\raw_field.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\offset_of.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\span_of.rs
+
+C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\target\sbpf-solana-solana\release\deps\libmemoffset-74f3c85b9f8c7805.rmeta: C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\lib.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\raw_field.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\offset_of.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\span_of.rs
+
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\lib.rs:
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\raw_field.rs:
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\offset_of.rs:
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\memoffset-0.9.1\src\span_of.rs:

@@ -1,0 +1,1 @@
+C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\target\sbpf-solana-solana\release\libsolanachat_protocol.rlib: C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\src\lib.rs

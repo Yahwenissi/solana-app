@@ -27,6 +27,7 @@ export function TimelockCard({
   onClaim: (address: string) => void
   isClaiming?: boolean
 }) {
+  // eslint-disable-next-line react-hooks/purity
   const now = Math.floor(Date.now() / 1000)
   const isReleased = now >= timelock.releaseTime && !timelock.claimed
 

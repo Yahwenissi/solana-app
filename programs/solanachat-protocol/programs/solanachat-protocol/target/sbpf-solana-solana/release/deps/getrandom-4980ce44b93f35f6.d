@@ -1,0 +1,10 @@
+C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\target\sbpf-solana-solana\release\deps\getrandom-4980ce44b93f35f6.d: C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\lib.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\error.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\util.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\custom.rs
+
+C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\target\sbpf-solana-solana\release\deps\libgetrandom-4980ce44b93f35f6.rlib: C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\lib.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\error.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\util.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\custom.rs
+
+C:\Users\Gagi\Desktop\solana-app\programs\solanachat-protocol\programs\solanachat-protocol\target\sbpf-solana-solana\release\deps\libgetrandom-4980ce44b93f35f6.rmeta: C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\lib.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\error.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\util.rs C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\custom.rs
+
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\lib.rs:
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\error.rs:
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\util.rs:
+C:\Users\Gagi\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\getrandom-0.2.17\src\custom.rs:
