@@ -1,13 +1,17 @@
-# SolanaChat — AI-Powered Solana Wallet with DCA Vaults & Timelocks
+# SolanaChat — Your on-chain CFO for Solana
 
-Send SOL, swap tokens, create recurring DCA vaults, and schedule timelocked transfers on Solana devnet by typing natural language commands. Powered by Claude AI for intent parsing, a custom SBF program for on-chain DCA/timelock logic, and Phantom Wallet for signing.
+Type a command. SolanaChat turns it into automated on-chain execution — DCAs, auto-compounding, stop-losses, allowances — across Jupiter, Kamino, Drift and JitoSOL. Powered by Claude AI for intent parsing, custom SBF programs for on-chain automation, and Phantom Wallet for signing.
 
 ## Features
 
-- **Natural language transactions** — `send 5 USDC to Alice`, `swap 2 SOL for USDC`, `send 1 SOL to Bob every week`, `send 2 SOL to Charlie next Friday`
-- **Jupiter Swap integration** — swap between SOL, USDC, USDT, BONK, JUP, RAY, PYTH, MSOL with live quotes and optimal routes
-- **DCA Vaults** — create recurring payment vaults that execute on-chain periodically; anyone can trigger execution when due
+- **Natural language commands** — `send 1 SOL to Bob every week`, `auto-compound my JitoSOL`, `swap 2 SOL for USDC`, `stop-loss my JUP at $0.42`
+- **DCA Vaults** — recurring payment vaults that execute on-chain periodically; anyone can trigger execution when due
 - **Timelocked Transfers** — lock tokens until a future release date, then claim them
+- **Jupiter Swap integration** — swap between SOL, USDC, USDT, BONK, JUP, RAY, PYTH, MSOL with live quotes and optimal routes
+- **Auto-compounding** — yield is restaked automatically without manual claim-and-redeposit
+- **Stop-losses** — set a price floor; the keeper watches it so you don't have to
+- **Allowances & Subscriptions** — approve exactly what SolanaChat can move, and nothing more
+- **Cron Keeper** — automated on-chain execution of recurring transfers and conditional rules (time-interval, price-trigger, yield-target) with email notifications
 - **Custom SBF Program** — deployed at `4Eh646fwA4q1G6xAtSXUYTzrAvHRZJ5MsZvmBmLBWuUK` — all 6 instructions (InitVault, Deposit, ExecuteDca, CloseVault, InitTimelock, ClaimTimelock) tested on devnet
 - **Voice confirmation** — browser speech reads back transaction details before signing
 - **Solana Explorer links** — click to verify every transaction on-chain
@@ -64,10 +68,12 @@ Open [http://localhost:3000](http://localhost:3000), connect your Phantom wallet
 
 ```
 app/
-  page.tsx              — Landing page
+  page.tsx              — Landing page (waitlist, hero, skyline ledger, capabilities, protocols, trust)
+  icon.svg              — Site icon (SolanaChat mono mark)
   chat/page.tsx         — Chat UI + sidebar with vaults/timelocks
   api/chat/route.ts     — Claude AI intent parsing (send/swap/dca/timelock)
   api/tts/route.ts      — ElevenLabs TTS endpoint
+  api/cron/check-rules/route.ts — Keeper: recurring transfers + conditional rule execution
   _components/
     ChatMessage.tsx      — Routes to correct preview/result card
     ChatInput.tsx        — Text input with send button
@@ -79,14 +85,18 @@ app/
     VaultCard.tsx        — Sidebar vault card with execute/close buttons
     TimelockCard.tsx     — Sidebar timelock card with claim button
     WalletButton.tsx     — Phantom wallet connect button
+    PositionDashboard.tsx — Portfolio dashboard grouping all positions by protocol
   _lib/
     types.ts            — All shared types (DcaVaultInfo, TimelockInfo, etc.)
     contacts.ts         — Hardcoded contacts (Alice, Bob, Charlie)
-    transactions.ts     — Legacy SOL/USDC helpers
+    transactions.ts     — SOL/USDC transfer helpers
 lib/
   protocol.ts           — SBF program client (instruction builders + PDA derivation + on-chain fetch)
+  allowances.ts         — Subscriptions program client (fixed + recurring delegations)
   jupiter.ts            — Jupiter swap quote + execution
   sendPayment.ts        — SOL/USDC transaction dispatch + error handling
+  indexer.ts            — Portfolio aggregator (DCA vaults, timelocks, token balances)
+  price-oracle.ts       — Token price fetching (Jupiter + CoinGecko) with caching
 programs/
   solanachat-protocol/  — Custom SBF program (Rust, 6 instructions)
     tests/solanachat.test.ts — Full lifecycle integration tests against devnet
@@ -102,6 +112,8 @@ programs/
 - Jupiter Swap API v6
 - Anthropic Claude Haiku 4.5
 - Phantom Wallet Adapter
+- ElevenLabs (optional TTS)
+- Resend (cron email notifications)
 
 ## Running Integration Tests
 

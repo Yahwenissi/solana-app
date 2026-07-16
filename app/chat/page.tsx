@@ -16,7 +16,7 @@ import {
   initVault, initTimelock, executeDca, closeVault, claimTimelock,
   getDcaVaultPda, getTimelockPda,
   getVaultsForOwner, getTimelocksForOwner,
-  getDecimalsForMint, decodeDcaVault,
+  decodeDcaVault,
 } from '@/lib/protocol'
 import { TOKEN_MINTS, TOKEN_DECIMALS } from '@/lib/jupiter'
 import type { ChatMessage as ChatMessageType, TransactionIntent, DcaVaultInfo, TimelockInfo } from '../_lib/types'
@@ -194,7 +194,7 @@ export default function ChatPage() {
     } finally {
       setIsSending(false)
     }
-  }, [pendingIntent, publicKey, sendTransaction, connection])
+  }, [pendingIntent, publicKey, sendTransaction, connection, refreshBalance])
 
   const handleSwapConfirm = useCallback(async (expectedOutput: number, slippage: number) => {
     if (!pendingIntent || !publicKey || !sendTransaction || !pendingIntent.inputToken || !pendingIntent.outputToken || !pendingIntent.inputAmount) return
@@ -246,7 +246,7 @@ export default function ChatPage() {
     } finally {
       setIsSending(false)
     }
-  }, [pendingIntent, publicKey, sendTransaction, connection])
+  }, [pendingIntent, publicKey, sendTransaction, connection, refreshBalance])
 
   const handleDcaConfirm = useCallback(async () => {
     if (!pendingIntent || !publicKey || !sendTransaction || !pendingIntent.amount || !pendingIntent.recipientName || !pendingIntent.interval) return

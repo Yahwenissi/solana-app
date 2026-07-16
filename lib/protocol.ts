@@ -5,6 +5,8 @@ import { TOKEN_MINTS, TOKEN_DECIMALS } from './jupiter'
 export const PROGRAM_ID = new PublicKey('4Eh646fwA4q1G6xAtSXUYTzrAvHRZJ5MsZvmBmLBWuUK')
 export const DCA_SEED = 'dca-vault'
 export const TIMELOCK_SEED = 'timelock'
+export const RULE_SEED = 'rule'
+export const RULE_LEN = 300
 
 export const DCA_VAULT_LEN = 137
 export const TIMELOCK_LEN = 114
@@ -51,6 +53,10 @@ function readI64(data: Buffer, offset: number): [number, number] {
 
 function readU8(data: Buffer, offset: number): [number, number] {
   return [data.readUInt8(offset), offset + 1]
+}
+
+function readU16(data: Buffer, offset: number): [number, number] {
+  return [data.readUInt16LE(offset), offset + 2]
 }
 
 export function decodeDcaVault(data: Buffer) {
@@ -412,6 +418,57 @@ export async function claimTimelock(
   tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash
 
   return wallet.sendTransaction(tx, connection)
+}
+
+export function getRulePda(
+  owner: PublicKey,
+): [PublicKey, number] {
+  return PublicKey.findProgramAddressSync(
+    [Buffer.from(RULE_SEED), owner.toBuffer()],
+    PROGRAM_ID,
+  )
+}
+
+type RuleCondition =
+  | { type: 'time_interval'; intervalSeconds: number }
+  | { type: 'price_trigger'; tokenMint: PublicKey; targetPrice: number; above: boolean }
+  | { type: 'yield_target'; tokenMint: PublicKey; minApyBps: number }
+
+export function decodeRule(data: Buffer) {
+  let offset = 0
+  const [owner, o1] = readPubkey(data, offset); offset = o1
+  const [active, o2] = readU8(data, offset); offset = o2
+  const [lastExecutedAt, o3] = readI64(data, offset); offset = o3
+  const [conditionType, o4] = readU8(data, offset); offset = o4
+
+  let condition: RuleCondition
+  if (conditionType === 0) {
+    const [intervalSeconds] = readI64(data, offset)
+    condition = { type: 'time_interval', intervalSeconds }
+  } else if (conditionType === 1) {
+    const [tokenMint, c1] = readPubkey(data, offset); offset = c1
+    const [targetPrice, c2] = readU64(data, offset); offset = c2
+    const [above] = readU8(data, offset)
+    condition = { type: 'price_trigger', tokenMint, targetPrice, above: above !== 0 }
+  } else {
+    const [tokenMint, c1] = readPubkey(data, offset); offset = c1
+    const [minApyBps] = readU16(data, offset)
+    condition = { type: 'yield_target', tokenMint, minApyBps }
+  }
+
+  return { owner, active: active !== 0, lastExecutedAt, condition, action: {} }
+}
+
+export function createExecuteRuleInstruction(
+  rulePda: PublicKey,
+  owner: PublicKey,
+): TransactionInstruction {
+  const data = encodeInstructionDiscriminant(6)
+  const keys = [
+    { pubkey: rulePda, isSigner: false, isWritable: true },
+    { pubkey: owner, isSigner: true, isWritable: false },
+  ]
+  return new TransactionInstruction({ keys, programId: PROGRAM_ID, data })
 }
 
 // ─── On-chain fetch ───

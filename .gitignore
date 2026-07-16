@@ -29,6 +29,7 @@
 
 # sbf build artifacts
 **/target/sbf-solana/
+**/target/sbpf-solana-solana/
 **/target/sbpfv3-solana-solana/
 **/target/deploy/
 

@@ -19,6 +19,7 @@ export type TransactionIntent = {
   totalDeposits?: number
   releaseDate?: string
   releaseTimestamp?: number
+  allowanceType?: 'recurring' | 'fixed'
 }
 
 export type TxResult = {
@@ -56,6 +57,19 @@ export type TimelockInfo = {
   releaseTime: number
   claimed: boolean
   address: string
+}
+
+export type PositionType = 'dca-vault' | 'timelock' | 'token-balance' | 'kamino' | 'marinade' | 'drift'
+
+export type Position = {
+  id: string
+  type: PositionType
+  protocol: string
+  tokenSymbol?: string
+  tokenDecimals: number
+  balance: number
+  usdValue?: number
+  metadata: Record<string, unknown>
 }
 
 export type ChatMessage = {
