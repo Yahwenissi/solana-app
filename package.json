@@ -13,13 +13,16 @@
     "@jup-ag/api": "^6.0.48",
     "@solana/spl-token": "^0.4.0",
     "@solana/wallet-adapter-base": "^0.9.27",
+    "@solana/wallet-adapter-phantom": "^0.9.29",
     "@solana/wallet-adapter-react": "^0.15.39",
     "@solana/wallet-adapter-react-ui": "^0.9.39",
-    "@solana/wallet-adapter-phantom": "^0.9.29",
     "@solana/web3.js": "^1.98.4",
+    "@vercel/analytics": "^2.0.1",
+    "framer-motion": "^12.42.2",
     "next": "^15",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "resend": "^6.17.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
